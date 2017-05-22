@@ -1,0 +1,96 @@
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		
+		<title>Financial Independence Timeline</title>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css"/>
+ 
+		<script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+		<script type="text/javascript" src="./fireplan.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="container">
+		<div class="header clearfix">
+			<nav>
+				<ul class="nav nav-pills pull-right">
+					<li class="nav-item">
+						<a class="nav-link" href="./main.html">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./about.html">About</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Contact</a>
+					</li>
+				</ul>
+			</nav>
+			<h3 class="text-muted">Financial Independence Timeline Estimator</h3>
+		</div>
+			<form>
+				<table>
+					<tr><td>Your Age:</td><td> <input type="text" id="formAge" name="age"></td></tr>
+					<tr><td>Value of Investments:</td><td> <input type="text" id="formValue" name="value"></td></tr>
+					<tr><td>Recurring Deposit:</td><td> <input type="text" id="formDeposit" name="deposit"></td></tr>
+					<tr><td>Number of Intervals:</td><td> <input type="text" id="formPayPeriods" name="payperiods"></td></tr>
+				</table>
+				<input type="button" id="button-id" value="Submit">
+			</form>
+			<table id="example" class="display" cellspacing="0" width="100%">
+				<thead>
+					<tr><th>Age</th><th>Avg Salary</th><th>Worst (5%)</th><th>Avg (7%)</th><th>Best (12%)</th></tr>
+				</thead>
+				<tbody id='tbody-id'>
+					<tr><td>29</td><td>$5,614.44</td><td>$137,737.34</td><td>$140,360.91</td><td>$146,919.83</td></tr>
+					<tr><td>30</td><td>$7,240.09</td><td>$174,864.21</td><td>$181,002.17</td><td>$196,806.21</td></tr>
+					<tr><td>31</td><td>$8,979.53</td><td>$213,847.42</td><td>$224,488.33</td><td>$252,678.96</td></tr>
+					<tr><td>32</td><td>$10,840.74</td><td>$254,779.79</td><td>$271,018.51</td><td>$315,256.43</td></tr>
+					<tr><td>33</td><td>$12,832.23</td><td>$297,758.78</td><td>$320,805.80</td><td>$385,343.20</td></tr>
+					<tr><td>34</td><td>$14,963.13</td><td>$342,886.72</td><td>$374,078.21</td><td>$463,840.39</td></tr>
+					<tr><td>35</td><td>$17,243.19</td><td>$390,271.05</td><td>$431,079.68</td><td>$551,757.23</td></tr>
+					<tr><td>36</td><td>$19,682.85</td><td>$440,024.61</td><td>$492,071.26</td><td>$650,224.10</td></tr>
+					<tr><td>37</td><td>$22,293.29</td><td>$492,265.84</td><td>$557,332.25</td><td>$760,506.99</td></tr>
+					<tr><td>38</td><td>$25,086.46</td><td>$547,119.13</td><td>$627,161.51</td><td>$884,023.83</td></tr>
+					<tr><td>39</td><td>$28,075.15</td><td>$604,715.08</td><td>$701,878.81</td><td>$1,022,362.69</td></tr>
+					<tr><td>40</td><td>$31,273.05</td><td>$665,190.84</td><td>$781,826.33</td><td>$1,177,302.21</td></tr>
+					<tr><td>41</td><td>$34,694.81</td><td>$728,690.38</td><td>$867,370.17</td><td>$1,350,834.48</td></tr>
+					<tr><td>42</td><td>$38,356.08</td><td>$795,364.90</td><td>$958,902.09</td><td>$1,545,190.62</td></tr>
+					<tr><td>43</td><td>$42,273.65</td><td>$865,373.15</td><td>$1,056,841.23</td><td>$1,762,869.49</td></tr>
+					<tr><td>44</td><td>$46,465.44</td><td>$938,881.80</td><td>$1,161,636.12</td><td>$2,006,669.83</td></tr>
+					<tr><td>45</td><td>$50,950.67</td><td>$1,016,065.89</td><td>$1,273,766.65</td><td>$2,279,726.21</td></tr>
+					<tr><td>46</td><td>$55,749.85</td><td>$1,097,109.19</td><td>$1,393,746.31</td><td>$2,585,549.35</td></tr>
+					<tr><td>47</td><td>$60,884.98</td><td>$1,182,204.65</td><td>$1,522,124.55</td><td>$2,928,071.28</td></tr>
+					<tr><td>48</td><td>$66,379.57</td><td>$1,271,554.88</td><td>$1,659,489.27</td><td>$3,311,695.83</td></tr>
+					<tr><td>49</td><td>$72,258.78</td><td>$1,365,372.62</td><td>$1,806,469.52</td><td>$3,741,355.33</td></tr>
+					<tr><td>50</td><td>$78,549.54</td><td>$1,463,881.25</td><td>$1,963,738.39</td><td>$4,222,573.97</td></tr>
+					<tr><td>51</td><td>$85,280.64</td><td>$1,567,315.32</td><td>$2,132,016.08</td><td>$4,761,538.84</td></tr>
+					<tr><td>52</td><td>$92,482.93</td><td>$1,675,921.08</td><td>$2,312,073.20</td><td>$5,365,179.51</td></tr>
+					<tr><td>53</td><td>$100,189.37</td><td>$1,789,957.14</td><td>$2,504,734.32</td><td>$6,041,257.05</td></tr>
+					<tr><td>54</td><td>$108,435.27</td><td>$1,909,694.99</td><td>$2,710,881.73</td><td>$6,798,463.89</td></tr>
+					<tr><td>55</td><td>$117,258.38</td><td>$2,035,419.74</td><td>$2,931,459.45</td><td>$7,646,535.56</td></tr>
+					<tr><td>56</td><td>$126,699.10</td><td>$2,167,430.73</td><td>$3,167,477.61</td><td>$8,596,375.83</td></tr>
+					<tr><td>57</td><td>$136,800.68</td><td>$2,306,042.27</td><td>$3,420,017.04</td><td>$9,660,196.93</td></tr>
+					<tr><td>58</td><td>$147,609.37</td><td>$2,451,584.38</td><td>$3,690,234.24</td><td>$10,851,676.56</td></tr>
+					<tr><td>59</td><td>$159,174.67</td><td>$2,604,403.60</td><td>$3,979,366.63</td><td>$12,186,133.74</td></tr>
+					<tr><td>60</td><td>$171,549.53</td><td>$2,764,863.78</td><td>$4,288,738.30</td><td>$13,680,725.79</td></tr>
+				</tbody>
+			</table>
+		</div>
+
+		<script type="text/javascript">
+			// For demo to fit into DataTables site builder...
+			$('#example')
+				.removeClass( 'display' )
+				.addClass('table table-striped table-bordered');
+		</script>
+	</body>
+</html>
