@@ -39,13 +39,33 @@
 			<form>
 				<table>
 					<tr><td>Your Age:</td><td> <input type="text" id="formAge" name="age"></td></tr>
-					<tr><td>Value of Investments:</td><td> <input type="text" id="formValue" name="value"></td></tr>
-					<tr><td>Recurring Deposit:</td><td> <input type="text" id="formDeposit" name="deposit"></td></tr>
-					<tr><td>Number of Intervals:</td><td> <input type="text" id="formPayPeriods" name="payperiods"></td></tr>
+					<tr>
+                        <td>Value of Investments:</td>
+                        <td><input type="text" id="formValueTaxable" name="valueTaxable"></td>
+					    <td>Recurring Deposit:</td>
+                        <td> <input type="text" id="formDepositTaxable" name="depositTaxable"></td>
+                    </tr>
+					<tr>
+                        <td>Value of 401k:</td>
+                        <td><input type="text" id="formValue401k" name="value401k"></td>
+					    <td>Recurring Deposit:</td>
+                        <td> <input type="text" id="formDeposit401k" name="deposit401k"></td>
+                    </tr>
+					<tr>
+                        <td>Value of Roth:</td>
+                        <td><input type="text" id="formValueRoth" name="valueRoth"></td>
+					    <td>Recurring Deposit:</td>
+                        <td><input type="text" id="formDepositRoth" name="depositRoth"></td>
+                    </tr>
+					<tr>
+                        <td>Number of Intervals:</td>
+                        <td><input type="text" id="formPayPeriods" name="payperiods"></td>
+                    </tr>
 				</table>
 				<input type="button" id="button-id" value="Submit">
 			</form>
-			<table id="example" class="display" cellspacing="0" width="100%">
+            <h1>Investment Account</h1>
+			<table id="table-tax" class="display" cellspacing="0" width="100%">
 				<thead>
 					<tr><th>Age</th><th>Avg Salary</th><th>Worst (5%)</th><th>Avg (7%)</th><th>Best (12%)</th></tr>
 				</thead>
@@ -84,11 +104,23 @@
 					<tr><td>60</td><td>$171,549.53</td><td>$2,764,863.78</td><td>$4,288,738.30</td><td>$13,680,725.79</td></tr>
 				</tbody>
 			</table>
+            <h1>401k</h1>
+			<table id="table-401k" class="display" cellspacing="0" width="100%">
+            </table> 
+            <h1>Roth IRA</h1>
+			<table id="table-roth" class="display" cellspacing="0" width="100%">
+            </table> 
 		</div>
 
 		<script type="text/javascript">
 			// For demo to fit into DataTables site builder...
-			$('#example')
+			$('#table-tax')
+				.removeClass( 'display' )
+				.addClass('table table-striped table-bordered');
+			$('#table-401k')
+				.removeClass( 'display' )
+				.addClass('table table-striped table-bordered');
+			$('#table-roth')
 				.removeClass( 'display' )
 				.addClass('table table-striped table-bordered');
 		</script>
