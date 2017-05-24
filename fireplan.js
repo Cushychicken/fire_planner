@@ -2,31 +2,14 @@ function formatMoney(n) {
     return '$' + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,');
 }
 
-function futureValue(age, value, deposit, pay_per, retire) {
-	var total_lo   = value;
-	var total_av   = value;
-	var total_hi   = value;
+function futureValue(age, interest, value, deposit, pay_per, years) {
+    var compound  = Math.pow(( 1.0 + (interest/pay_per) ), (years * pay_per));
+    var principal = value * compound;
 
-    var dataset = [];
-	for (var i = age; i <= 60; ++i) {
-		total_lo  = total_lo * 1.05;
-		total_av  = total_av * 1.07;
-		total_hi  = total_hi * 1.12;
+    var payments  = deposit * ((compound-1)/(interest/pay_per));
+    console.log(payments);
 
-		accum_lo  = formatMoney(total_lo); 
-		accum_av  = formatMoney(total_av);
-		accum_hi  = formatMoney(total_av);
-
-		salary = formatMoney((0.04 * total_av));
-
-		dataset.push([i , salary, accum_lo, accum_av, accum_hi]);
-
-		total_lo  = total_lo + (deposit * pay_per);
-		total_av  = total_av + (deposit * pay_per);
-		total_hi  = total_hi + (deposit * pay_per);
-	}
-
-    return dataset;
+    return (principal + payments);
 }
 
 function drawDataTable(dataset, table_id) {
@@ -41,10 +24,11 @@ function drawDataTable(dataset, table_id) {
 				data: dataset,
 				columns: [
 					{ title: "Age" },
-					{ title: "Avg Salary" },
-					{ title: "Worst (5%)" },
-					{ title: "Avg (7%)" },
-					{ title: "Best (12%)" }
+					{ title: "Income" },
+					{ title: "Taxable" },
+					{ title: "401(k)" },
+					{ title: "Roth" },
+					{ title: "Income @ Age 60" }
 				],
 				bFilter: false, 
 				bInfo: false,
@@ -69,14 +53,29 @@ $(document).ready(function() {
 
 		var dataset = [];
 
-        dataset = futureValue(age, value_tax, deposit_tax, pay_per, 60);
-        drawDataTable(dataset, '#table-tax');
+        for (var i = age; i < 60; i++) {
+            var data = [];
+
+            var project_tax  = futureValue(i, 0.07, value_tax, deposit_tax, 24, (i - age));
+            var project_401k = futureValue(i, 0.07, value_401k, deposit_401k, 24, (i - age));
+            var project_roth = futureValue(i, 0.07, value_roth, deposit_roth, 24, (i - age));
+
+            var nocont_401k  = futureValue(i, 0.07, project_401k, 0, 24, (60 - i ));
+            var nocont_roth  = futureValue(i, 0.07, project_roth, 0, 24, (60 - i ));
+
+            data = [ 
+               i,
+               formatMoney((0.04*project_tax)),
+               formatMoney(project_tax),
+               formatMoney(nocont_401k),
+               formatMoney(nocont_roth),
+               formatMoney((nocont_401k + nocont_roth) * 0.04)
+            ];
+            dataset.push(data);
+        }
         
-        dataset = futureValue(age, value_401k, deposit_401k, pay_per, 60);
-        drawDataTable(dataset, '#table-401k');
-
-        dataset = futureValue(age, value_roth, deposit_roth, pay_per, 60);
-        drawDataTable(dataset, '#table-roth');
-
+        drawDataTable(dataset, "#table-tax");
 	});
 });
+			
+
