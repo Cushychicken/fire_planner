@@ -27,8 +27,8 @@ function drawDataTable(dataset, table_id) {
 					{ title: "Income" },
 					{ title: "Taxable" },
 					{ title: "401(k)" },
-					{ title: "Roth" },
-					{ title: "Income @ Age 60" }
+					{ title: "Roth" }
+					//{ title: "Income @ Age 60" }
 				],
 				bFilter: false, 
 				bInfo: false,
@@ -67,9 +67,9 @@ $(document).ready(function() {
                i,
                formatMoney((0.04*project_tax)),
                formatMoney(project_tax),
-               formatMoney(nocont_401k),
-               formatMoney(nocont_roth),
-               formatMoney((nocont_401k + nocont_roth) * 0.04)
+               formatMoney(project_401k),
+               formatMoney(project_roth)
+               //formatMoney((nocont_401k + nocont_roth) * 0.04)
             ];
             dataset.push(data);
         }
