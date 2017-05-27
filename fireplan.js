@@ -41,6 +41,8 @@ $(document).ready(function() {
 	$('#button-id').click(function() {
 		var age          = $('#formAge').val();
 		var pay_per      = $('#formPayPeriods').val();
+		var avg_return   = $('#formAvgReturns').val();
+		var swr_rate     = $('#formSafeWithdrawal').val();
 
 		var value_tax    = $('#formValueTaxable').val();
 		var value_401k   = $('#formValue401k').val();
@@ -52,19 +54,28 @@ $(document).ready(function() {
 
 		var dataset = [];
 
+        // Validating default vs user input Avg Return/SWR Rates
+        if (avg_return==null || avg_return=="") {
+            avg_return = 0.07;
+        } 
+
+        if (swr_rate==null || swr_rate=="") {
+            swr_rate = 0.04;
+        } 
+        
         for (var i = age; i < 60; i++) {
             var data = [];
 
-            var project_tax  = futureValue(i, 0.07, value_tax, deposit_tax, pay_per, (i - age));
-            var project_401k = futureValue(i, 0.07, value_401k, deposit_401k, pay_per, (i - age));
-            var project_roth = futureValue(i, 0.07, value_roth, deposit_roth, pay_per, (i - age));
+            var project_tax  = futureValue(i, avg_return, value_tax, deposit_tax, pay_per, (i - age));
+            var project_401k = futureValue(i, avg_return, value_401k, deposit_401k, pay_per, (i - age));
+            var project_roth = futureValue(i, avg_return, value_roth, deposit_roth, pay_per, (i - age));
 
-            var nocont_401k  = futureValue(i, 0.07, project_401k, 0, pay_per, (60 - i ));
-            var nocont_roth  = futureValue(i, 0.07, project_roth, 0, pay_per, (60 - i ));
+            var nocont_401k  = futureValue(i, avg_return, project_401k, 0, pay_per, (60 - i ));
+            var nocont_roth  = futureValue(i, avg_return, project_roth, 0, pay_per, (60 - i ));
 
             data = [ 
                i,
-               formatMoney((0.04*project_tax)),
+               formatMoney((swr_rate*project_tax)),
                formatMoney(project_tax),
                formatMoney(project_401k),
                formatMoney(project_roth)
