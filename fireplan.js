@@ -28,7 +28,6 @@ function drawDataTable(dataset, table_id) {
 					{ title: "Taxable" },
 					{ title: "401(k)" },
 					{ title: "Roth" }
-					//{ title: "Income @ Age 60" }
 				],
 				bFilter: false, 
 				bInfo: false,
@@ -56,12 +55,12 @@ $(document).ready(function() {
         for (var i = age; i < 60; i++) {
             var data = [];
 
-            var project_tax  = futureValue(i, 0.07, value_tax, deposit_tax, 24, (i - age));
-            var project_401k = futureValue(i, 0.07, value_401k, deposit_401k, 24, (i - age));
-            var project_roth = futureValue(i, 0.07, value_roth, deposit_roth, 24, (i - age));
+            var project_tax  = futureValue(i, 0.07, value_tax, deposit_tax, pay_per, (i - age));
+            var project_401k = futureValue(i, 0.07, value_401k, deposit_401k, pay_per, (i - age));
+            var project_roth = futureValue(i, 0.07, value_roth, deposit_roth, pay_per, (i - age));
 
-            var nocont_401k  = futureValue(i, 0.07, project_401k, 0, 24, (60 - i ));
-            var nocont_roth  = futureValue(i, 0.07, project_roth, 0, 24, (60 - i ));
+            var nocont_401k  = futureValue(i, 0.07, project_401k, 0, pay_per, (60 - i ));
+            var nocont_roth  = futureValue(i, 0.07, project_roth, 0, pay_per, (60 - i ));
 
             data = [ 
                i,
