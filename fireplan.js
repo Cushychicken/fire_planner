@@ -96,9 +96,6 @@ $(document).ready(function() {
 
         var dataset_retire = [];
         
-        var balanceTaxable = 600000;
-		
-        var pay_per        = 24;
 		var avg_return     = 0.07;
 
         var i;
@@ -107,17 +104,19 @@ $(document).ready(function() {
             var data = [];
             var income;
 
-            balanceTaxable = futureValue(avg_return, (balanceTaxable - incomeRetire), 0, 1, 1);
+            if ( i > 59 ) { 
+                income         = (0.04 * balanceTaxable) + (0.04 * balanceRoth) + (0.04 * balance401k);
+                balanceTaxable = balanceTaxable - (0.04 * balanceTaxable);
+                balance401k    = balance401k    - (0.04 * balance401k);
+                balanceRoth    = balanceRoth    - (0.04 * balanceRoth);
+            } else {
+                income         = (0.04 * balanceTaxable);
+                balanceTaxable = balanceTaxable - (0.04 * balanceTaxable);
+            }
+
+            balanceTaxable = futureValue(avg_return, balanceTaxable, 0, 1, 1);
             balance401k    = futureValue(avg_return, balance401k, 0, 1, 1);
             balanceRoth    = futureValue(avg_return, balanceRoth, 0, 1, 1);
-           
-            if ( i > 59 ) { 
-                income      = incomeRetire + (0.04 * balanceRoth) + (0.04 * balance401k);
-                balance401k = balance401k - (0.04 * balance401k);
-                balanceRoth = balanceRoth - (0.04 * balanceRoth);
-            } else {
-                income      = incomeRetire;
-            }
 
             data = [
                 i,
