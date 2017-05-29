@@ -59,8 +59,9 @@
         <div class="row">
             <div class="col-xs-12 col-md-8">
 			<form>
+                <h2>Your Financial Information</h2>
 				<table>
-				    <tr >
+				    <tr>
                         <td align="center" id="DepositHeaders">
                             <h3>Account Type</h3>
                         </td>
@@ -88,7 +89,7 @@
                         <td><input type="text" id="formDepositRoth" name="depositRoth"></td>
                     </tr>
 					<tr>
-                        <td>Pay Frequency</td>
+                        <td>Deposit Frequency</td>
                         <td>
                             <select name="payPeriodSelect" id="formPayPeriods">
                                 <option value="12">Monthly</option>
@@ -99,15 +100,15 @@
                         </td>
                     </tr>
 					<tr>
-                        <td>Your Age:</td>
+                        <td>Your Age</td>
                         <td><input type="text" id="formAge" name="age"></td>
                     </tr>
 					<tr>
-                        <td>Average Return:</td>
+                        <td>Average Return</td>
                         <td><input type="text" id="formAvgReturns" name="avgReturns" placeholder="(Default is 0.07, or 7%)"></td>
                     </tr>
 					<tr>
-                        <td>Withdrawal Rate:</td>
+                        <td>Withdrawal Rate</td>
                         <td><input type="text" id="formSafeWithdrawal" name="safeWithdrawal" placeholder="(Default is 0.04, or 4%)"></td>
                     </tr>
 				</table>
@@ -117,26 +118,67 @@
                         <div class="col-xs-6 col-md-4"></div>
                     </div>
             <div class="row">
-            <h1>Your Investments</h1>
-            <p>The table generated here reflects the estimated performance of your taxable, 
-            401k, and Roth accounts, given their current value and your recurring deposit 
-            to them. The "Taxable" column shows the anticipated balance of your taxable 
-            investment account. The "Income" column shows the amount you could safely withdraw 
-            from your taxable balance annually, and assumes a 4% safe withdrawal rate.</p>
-            <p>All accounts assume a 7% annual return - the historical average performance 
-            of the S&P 500.</p> 
+                <div class="col-xs-12 col-md-8">
+			        <form>
+                        <h2>Your Retirement Information</h2>
+				        <table>
+					        <tr>
+                                <td>Retirement Age</td>
+                                <td><input type="text" id="formAgeRetire" name="ageRetire"></td>
+                            </tr>
+					        <tr>
+                                <td>Investment Income</td>
+                                <td><input type="text" id="formIncomeRetire" name="incomeRetire"></td>
+                            </tr>
+					        <tr>
+                                <td>Taxable Balance</td>
+                                <td><input type="text" id="formTaxableRetire" name="taxableRetire"></td>
+                            </tr>
+					        <tr>
+                                <td>401(k) Balance</td>
+                                <td><input type="text" id="form401kRetire" name="401kRetire"></td>
+                            </tr>
+					        <tr>
+                                <td>Roth Balance</td>
+                                <td><input type="text" id="formRothRetire" name="rothRetire"></td>
+                            </tr>
+				        </table>
+				        <input type="button" id="button-retire-id" value="Submit">
+			        </form>
+                </div>
+            </div>
+            <div class="row">
+                <h1>Your Investments</h1>
+                <p>The table generated here reflects the estimated performance of your taxable, 
+                401k, and Roth accounts, given their current value and your recurring deposit 
+                to them. The "Taxable" column shows the anticipated balance of your taxable 
+                investment account. The "Income" column shows the amount you could safely withdraw 
+                from your taxable balance annually, and assumes a 4% safe withdrawal rate.</p>
+                <p>All accounts assume a 7% annual return - the historical average performance 
+                of the S&P 500.</p> 
 
-			<table id="table-tax" class="display" cellspacing="0" width="100%">
-				<thead>
-				</thead>
-				<tbody id='tbody-id'>
-				</tbody>
-			</table>
+			    <table id="table-tax" class="display" cellspacing="0" width="100%">
+				    <thead>
+				    </thead>
+				    <tbody id='tbody-save-id'>
+				    </tbody>
+			    </table>
+                <h1>Your Retirement Income</h1>
+			    <table id="table-retire" class="display" cellspacing="0" width="100%">
+				    <thead>
+				    </thead>
+				    <tbody id='tbody-retire-id'>
+				    </tbody>
+			    </table>
             </div>
 		</div>
 
 		<script type="text/javascript">
 			$('#table-tax')
+				.removeClass( 'display' )
+				.addClass('table table-striped table-bordered');
+
+			$('#table-retire')
 				.removeClass( 'display' )
 				.addClass('table table-striped table-bordered');
 		</script>

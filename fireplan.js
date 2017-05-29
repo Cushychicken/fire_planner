@@ -2,12 +2,11 @@ function formatMoney(n) {
     return '$' + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,');
 }
 
-function futureValue(age, interest, value, deposit, pay_per, years) {
+function futureValue(interest, value, deposit, pay_per, years) {
     var compound  = Math.pow(( 1.0 + (interest/pay_per) ), (years * pay_per));
     var principal = value * compound;
 
     var payments  = deposit * ((compound-1)/(interest/pay_per));
-    console.log(payments);
 
     return (principal + payments);
 }
@@ -24,7 +23,7 @@ function drawDataTable(dataset, table_id) {
 				data: dataset,
 				columns: [
 					{ title: "Age" },
-					{ title: "Income" },
+					{ title: "Taxable SWR" },
 					{ title: "Taxable" },
 					{ title: "401(k)" },
 					{ title: "Roth" }
@@ -66,12 +65,12 @@ $(document).ready(function() {
         for (var i = age; i < 60; i++) {
             var data = [];
 
-            var project_tax  = futureValue(i, avg_return, value_tax, deposit_tax, pay_per, (i - age));
-            var project_401k = futureValue(i, avg_return, value_401k, deposit_401k, pay_per, (i - age));
-            var project_roth = futureValue(i, avg_return, value_roth, deposit_roth, pay_per, (i - age));
+            var project_tax  = futureValue(avg_return, value_tax, deposit_tax, pay_per, (i - age));
+            var project_401k = futureValue(avg_return, value_401k, deposit_401k, pay_per, (i - age));
+            var project_roth = futureValue(avg_return, value_roth, deposit_roth, pay_per, (i - age));
 
-            var nocont_401k  = futureValue(i, avg_return, project_401k, 0, pay_per, (60 - i ));
-            var nocont_roth  = futureValue(i, avg_return, project_roth, 0, pay_per, (60 - i ));
+            var nocont_401k  = futureValue(avg_return, project_401k, 0, pay_per, (60 - i ));
+            var nocont_roth  = futureValue(avg_return, project_roth, 0, pay_per, (60 - i ));
 
             data = [ 
                i,
@@ -79,13 +78,68 @@ $(document).ready(function() {
                formatMoney(project_tax),
                formatMoney(project_401k),
                formatMoney(project_roth)
-               //formatMoney((nocont_401k + nocont_roth) * 0.04)
             ];
             dataset.push(data);
         }
         
         drawDataTable(dataset, "#table-tax");
+
 	});
+
+	$('#button-retire-id').click(function() {
+        var ageRetire        = Number($('#formAgeRetire').val());
+        var incomeRetire     = Number($('#formIncomeRetire').val());
+
+        var balanceTaxable   = Number($('#formTaxableRetire').val());
+        var balance401k      = Number($('#form401kRetire').val());
+        var balanceRoth      = Number($('#formRothRetire').val());
+
+        var dataset_retire = [];
+        
+        var balanceTaxable = 600000;
+		
+        var pay_per        = 24;
+		var avg_return     = 0.07;
+
+        var i;
+
+        for (i = ageRetire; i < 86; i++) {
+            var data = [];
+            var income;
+
+            balanceTaxable = futureValue(avg_return, (balanceTaxable - incomeRetire), 0, 1, 1);
+            balance401k    = futureValue(avg_return, balance401k, 0, 1, 1);
+            balanceRoth    = futureValue(avg_return, balanceRoth, 0, 1, 1);
+           
+            if ( i > 59 ) { 
+                income      = incomeRetire + (0.04 * balanceRoth) + (0.04 * balance401k);
+                balance401k = balance401k - (0.04 * balance401k);
+                balanceRoth = balanceRoth - (0.04 * balanceRoth);
+            } else {
+                income      = incomeRetire;
+            }
+
+            data = [
+                i,
+                formatMoney(income),
+                formatMoney(balanceTaxable),
+                formatMoney(balance401k),
+                formatMoney(balanceRoth)
+            ];
+
+            dataset_retire.push(data);
+        }
+
+        drawDataTable(dataset_retire, "#table-retire");
+
+    });
+
+    $('#table-tax tbody').on('click','tr', function () {
+        $(this).toggleClass('row_selected');
+        $(this).find('td').each( function () {
+            console.log($(this).html());
+        });
+    });
+    
 });
 			
-
