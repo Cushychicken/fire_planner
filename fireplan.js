@@ -133,10 +133,17 @@ $(document).ready(function() {
 
     });
 
+    // Autopopulates retirement information form with results from savings chart 
     $('#table-tax tbody').on('click','tr', function () {
         $(this).toggleClass('row_selected');
-        $(this).find('td').each( function () {
-            console.log($(this).html());
+        $(this).find('td').each( function (i) {
+            switch(i++) {
+                case 0: $("#formAgeRetire").val($(this).html());     break;
+                case 1:                                              break;
+                case 2: $("#formTaxableRetire").val($(this).html()); break;
+                case 3: $("#form401kRetire").val($(this).html());    break;
+                case 4: $("#formRothRetire").val($(this).html());    break;
+            }
         });
     });
     
