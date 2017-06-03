@@ -35,7 +35,7 @@
 
         </script>
         <style>
-            table td #DepositHeaders {padding: 10px;}
+            table td {padding: 5px;}
         </style>
 	</head>
 	<body>
@@ -56,7 +56,7 @@
 		</div>
         <div class="row">
             <div class="col-xs-12 col-md-8">
-			<form>
+			<form class="form-horizontal">
                 <h2>Your Financial Information</h2>
 				<table>
 				    <tr>
@@ -73,18 +73,18 @@
                     </tr>    
                     <tr>
                         <td>Taxable</td>
-                        <td><input type="text" id="formValueTaxable" name="valueTaxable"></td>
-                        <td><input type="text" id="formDepositTaxable" name="depositTaxable"></td>
+                        <td><input type="text" id="formValueTaxable" name="valueTaxable" class="form-control"></td>
+                        <td><input type="text" id="formDepositTaxable" name="depositTaxable" class="form-control"></td>
                     </tr>
 					<tr>
                         <td>401k</td>
-                        <td><input type="text" id="formValue401k" name="value401k"></td>
-                        <td><input type="text" id="formDeposit401k" name="deposit401k"></td>
+                        <td><input type="text" id="formValue401k" name="value401k" class="form-control"></td>
+                        <td><input type="text" id="formDeposit401k" name="deposit401k" class="form-control"></td>
                     </tr>
 					<tr>
                         <td>Roth</td>
-                        <td><input type="text" id="formValueRoth" name="valueRoth"></td>
-                        <td><input type="text" id="formDepositRoth" name="depositRoth"></td>
+                        <td><input type="text" id="formValueRoth" name="valueRoth" class="form-control"></td>
+                        <td><input type="text" id="formDepositRoth" name="depositRoth" class="form-control"></td>
                     </tr>
 					<tr>
                         <td>Deposit Frequency</td>
@@ -99,18 +99,21 @@
                     </tr>
 					<tr>
                         <td>Your Age</td>
-                        <td><input type="text" id="formAge" name="age"></td>
+						<td>
+							<input type="text" id="formAge" name="age" class="form-control">
+						</div>
+						</td>
                     </tr>
 					<tr>
                         <td>Average Return</td>
-                        <td><input type="text" id="formAvgReturns" name="avgReturns" placeholder="(Default is 0.07, or 7%)"></td>
+                        <td><input type="text" id="formAvgReturns" name="avgReturns" placeholder="(Default is 0.07, or 7%)" class="form-control"></td>
                     </tr>
 					<tr>
                         <td>Withdrawal Rate</td>
-                        <td><input type="text" id="formSafeWithdrawal" name="safeWithdrawal" placeholder="(Default is 0.04, or 4%)"></td>
+                        <td><input type="text" id="formSafeWithdrawal" name="safeWithdrawal" class="form-control" placeholder="(Default is 0.04, or 4%)"></td>
                     </tr>
 				</table>
-				        <input type="button" id="button-id" value="Submit">
+				        <input type="button" class="btn btn-primary" id="button-id" value="Submit">
 			</form>
                         </div>
                         <div class="col-xs-6 col-md-4"></div>
