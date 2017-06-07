@@ -90,9 +90,9 @@ $(document).ready(function() {
         var ageRetire        = Number($('#formAgeRetire').val());
         var incomeRetire     = Number($('#formIncomeRetire').val());
 
-        var balanceTaxable   = Number($('#formTaxableRetire').val());
-        var balance401k      = Number($('#form401kRetire').val());
-        var balanceRoth      = Number($('#formRothRetire').val());
+        var balanceTaxable   = Number($('#formTaxableRetire').val().replace(/[^0-9\.]+/g,""));
+        var balance401k      = Number($('#form401kRetire').val().replace(/[^0-9\.]+/g,""));
+        var balanceRoth      = Number($('#formRothRetire').val().replace(/[^0-9\.]+/g,""));
 
         var dataset_retire = [];
         
