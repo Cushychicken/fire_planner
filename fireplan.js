@@ -43,13 +43,13 @@ $(document).ready(function() {
 		var avg_return   = $('#formAvgReturns').val();
 		var swr_rate     = $('#formSafeWithdrawal').val();
 
-		var value_tax    = $('#formValueTaxable').val();
-		var value_401k   = $('#formValue401k').val();
-		var value_roth   = $('#formValueRoth').val();
+		var value_tax    = Number($('#formValueTaxable').val().replace(/[^0-9\.]+/g,""));
+		var value_401k   = Number($('#formValue401k').val().replace(/[^0-9\.]+/g,""));
+		var value_roth   = Number($('#formValueRoth').val().replace(/[^0-9\.]+/g,""));
 
-		var deposit_tax  = $('#formDepositTaxable').val();
-		var deposit_401k = $('#formDeposit401k').val();
-		var deposit_roth = $('#formDepositRoth').val();
+		var deposit_tax  = Number($('#formDepositTaxable').val().replace(/[^0-9\.]+/g,""));
+		var deposit_401k = Number($('#formDeposit401k').val().replace(/[^0-9\.]+/g,""));
+		var deposit_roth = Number($('#formDepositRoth').val().replace(/[^0-9\.]+/g,""));
 
 		var dataset = [];
 
