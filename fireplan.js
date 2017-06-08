@@ -36,6 +36,84 @@ function drawDataTable(dataset, table_id) {
 
 }
 
+function drawInvestmentChart(ages, taxs, swrs) {
+    var ctx = document.getElementById('chart-Investments').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+        labels: ages,
+        datasets: [{
+                // "principal" replaces "apples"
+                label: 'principal',
+                yAxisID: 'principal',
+                data: taxs,
+                backgroundColor: "rgba(153,255,51,0.6)"
+            }, {
+                // "safe withdrawal" replaces "blues"
+                label: 'swr',
+                yAxisID: 'swr',
+                type: "line",
+                data: swrs,
+                backgroundColor: "rgba(204,0,204,0.6)"
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    id: 'principal',
+                    position: 'left',
+                    stacked: true
+                }, {
+                    id: 'swr',
+                    position: 'right'
+                }],
+                xAxes: [{
+                    stacked: true
+                }]
+           }
+        }
+    });
+}
+
+function drawSafeWithdrawalChart(ages, taxs, swrs) {
+    var ctx = document.getElementById('chart-swr').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+        labels: ages,
+        datasets: [{
+                // "principal" replaces "apples"
+                label: 'principal',
+                yAxisID: 'principal',
+                data: taxs,
+                backgroundColor: "rgba(153,255,51,0.6)"
+            }, {
+                // "safe withdrawal" replaces "blues"
+                label: 'swr',
+                yAxisID: 'swr',
+                type: "line",
+                data: swrs,
+                backgroundColor: "rgba(204,0,204,0.6)"
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    id: 'principal',
+                    position: 'left',
+                    stacked: true
+                }, {
+                    id: 'swr',
+                    position: 'right'
+                }],
+                xAxes: [{
+                    stacked: true
+                }]
+           }
+        }
+    });
+}
+
 $(document).ready(function() {
 	$('#button-id').click(function() {
 		var age          = $('#formAge').val();
@@ -83,6 +161,12 @@ $(document).ready(function() {
         }
         
         drawDataTable(dataset, "#table-tax");
+
+        var ages = dataset.map(function(value,index) { return value[0]; });
+        var taxs = dataset.map(function(value,index) { return value[2].replace(/[^0-9\.]+/g,""); });
+        var swrs = dataset.map(function(value,index) { return value[1].replace(/[^0-9\.]+/g,""); });
+        drawInvestmentChart(ages, taxs, swrs);
+        drawSafeWithdrawalChart(ages, taxs, swrs);
 
 	});
 
