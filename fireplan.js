@@ -44,13 +44,13 @@ function drawInvestmentChart(ages, taxs, swrs) {
         labels: ages,
         datasets: [{
                 // "principal" replaces "apples"
-                label: 'principal',
+                label: 'Balance',
                 yAxisID: 'principal',
                 data: taxs,
                 backgroundColor: "rgba(153,255,51,0.6)"
             }, {
                 // "safe withdrawal" replaces "blues"
-                label: 'swr',
+                label: 'Safe Withdrawal Amount',
                 yAxisID: 'swr',
                 type: "line",
                 data: swrs,
