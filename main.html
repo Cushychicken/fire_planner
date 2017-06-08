@@ -56,7 +56,7 @@
 			<h4 class="text-muted">Build the life you want, and save for it!</h4>
 		</div>
         <div class="row">
-            <div class="col-xs-12 col-md-8">
+            <div>
 			<form class="form-horizontal">
                 <h2>Your Financial Information</h2>
 				<table>
@@ -68,24 +68,29 @@
                             <h3>Current Balance</h3>
                         </td>
                         <td align="center" id="DepositHeaders">
-                            <h3 data-toggle="tooltip" data-placement="top" title="The per-paycheck amount you     deposit into each account">Recurring Deposit</h3>
-
+                            <h3 data-toggle="tooltip" data-placement="top" title="The per-paycheck amount you deposit into each account">Recurring Deposit</h3>
+                        </td>
+                        <td align="center" id="DepositHeaders">
+                            <h3 data-toggle="tooltip" data-placement="top" title="Once-yearly payments; bonuses, windfalls, etc.">Annual Deposit</h3>
                         </td>
                     </tr>    
                     <tr>
                         <td>Taxable</td>
                         <td><input type="text" id="formValueTaxable" name="valueTaxable" class="form-control"></td>
                         <td><input type="text" id="formDepositTaxable" name="depositTaxable" class="form-control"></td>
+                        <td><input type="text" id="formDepositTaxableAnnual" name="depositTaxableAnnual" class="form-control"></td>
                     </tr>
 					<tr>
                         <td>401k</td>
                         <td><input type="text" id="formValue401k" name="value401k" class="form-control"></td>
                         <td><input type="text" id="formDeposit401k" name="deposit401k" class="form-control"></td>
+                        <td><input type="text" id="formDeposit401kAnnual" name="deposit401kAnnual" class="form-control"></td>
                     </tr>
 					<tr>
                         <td>Roth</td>
                         <td><input type="text" id="formValueRoth" name="valueRoth" class="form-control"></td>
                         <td><input type="text" id="formDepositRoth" name="depositRoth" class="form-control"></td>
+                        <td><input type="text" id="formDepositRothAnnual" name="depositRothAnnual" class="form-control"></td>
                     </tr>
 					<tr>
                         <td>Deposit Frequency</td>
