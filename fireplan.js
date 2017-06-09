@@ -30,7 +30,8 @@ function drawDataTable(dataset, table_id) {
 				],
 				bFilter: false, 
 				bInfo: false,
-				paging: false
+				paging: false,
+                ordering: false
 			});
 		}
 
@@ -170,6 +171,33 @@ $(document).ready(function() {
             }
         });
     });
+    
+    // Hides additional investment columns, allowing you to focus on "Taxable", "401k", or "Roth"
+    $('#table-tax thead').on( 'click', 'th', function (e) {
+        var header_clicked = $(e.target).html();
+        e.preventDefault();
+        var table = $('#table-tax').DataTable();
+        
+        var dont_bother = false;
+        if ( header_clicked === "Age" || header_clicked === "Taxable SWR" ) {
+            dont_bother = true;
+        }
+        
+        // Iterates through columns; hides those columns which weren't clicked
+        //      Only works on "taxable", "401k", and "Roth" columns
+        table.columns().every( function () {
+            switch ($(this.header()).html()) {
+                case "Age"        : break;
+                case "Taxable SWR": break;
+                default           :
+                    if ( !dont_bother && (header_clicked !== $(this.header()).html()) ) {
+                        var column = table.column($(this));
+                        column.visible( !column.visible() );
+                    }
+                    break;
+            }
+        });
+    } );
     
 });
 			
