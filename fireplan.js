@@ -25,9 +25,32 @@ function drawDataTable(dataset, table_id) {
 					{ title: "Age" },
 					{ title: "Taxable SWR" },
 					{ title: "Taxable" },
+					{ title: "Regular Deposit" },
+					{ title: "Annual Deposit" },
 					{ title: "401(k)" },
-					{ title: "Roth" }
+					{ title: "Regular Deposit" },
+					{ title: "Annual Deposit" },
+					{ title: "Roth" },
+					{ title: "Deposit" },
+					{ title: "Ann. Deposit" }
 				],
+                columnDefs: [
+                    {
+                        targets: [ 3, 4, 6, 7, 9, 10], 
+                        visible: false
+                    },
+                    { name: "age",      targets: 0  },
+                    { name: "swr",      targets: 1  },
+                    { name: "tax",      targets: 2  },
+                    { name: "tax_dep",  targets: 3  },
+                    { name: "tax_ann",  targets: 4  },
+                    { name: "401k",     targets: 5  },
+                    { name: "401k_dep", targets: 6  },
+                    { name: "401k_ann", targets: 7  },
+                    { name: "roth",     targets: 8  },
+                    { name: "roth_dep", targets: 9  },
+                    { name: "roth_ann", targets: 10 }
+                ],
 				bFilter: false, 
 				bInfo: false,
 				paging: false,
@@ -35,6 +58,30 @@ function drawDataTable(dataset, table_id) {
 			});
 		}
 
+}
+
+function drawRetirementTable(dataset, table_id) {
+    if ( $.fn.dataTable.isDataTable( table_id ) ) {
+        table = $(table_id).DataTable();
+        table.clear();
+        table.rows.add(dataset);
+        table.draw();
+    } else {
+        $(table_id).DataTable( { 
+            data: dataset,
+            columns: [
+                { title: "Age" },
+                { title: "Taxable SWR" },
+                { title: "Taxable" },
+                { title: "401(k)" },
+                { title: "Roth" }
+            ],
+            bFilter: false, 
+            bInfo: false,
+            paging: false,
+            ordering: false
+        });
+    }
 }
 
 $(document).ready(function() {
@@ -77,8 +124,14 @@ $(document).ready(function() {
             i,
             formatMoney((swr_rate*project_tax)),
             formatMoney(project_tax),
+            formatMoney(deposit_tax),
+            formatMoney(deposit_tax_annual),
             formatMoney(project_401k),
-            formatMoney(project_roth)
+            formatMoney(deposit_401k),
+            formatMoney(deposit_401k_annual),
+            formatMoney(project_roth),
+            formatMoney(deposit_roth),
+            formatMoney(deposit_roth_annual)
         ];
         dataset.push(data);
 
@@ -95,8 +148,14 @@ $(document).ready(function() {
                i,
                formatMoney((swr_rate*project_tax)),
                formatMoney(project_tax),
+               formatMoney(deposit_tax),
+               formatMoney(deposit_tax_annual),
                formatMoney(project_401k),
-               formatMoney(project_roth)
+               formatMoney(deposit_401k),
+               formatMoney(deposit_401k_annual),
+               formatMoney(project_roth),
+               formatMoney(deposit_roth),
+               formatMoney(deposit_roth_annual)
             ];
             dataset.push(data);
 
@@ -154,20 +213,21 @@ $(document).ready(function() {
             dataset_retire.push(data);
         }
 
-        drawDataTable(dataset_retire, "#table-retire");
+        drawRetirementTable(dataset_retire, "#table-retire");
 
     });
 
     // Autopopulates retirement information form with results from savings chart 
+    //      Currently broken due to the UI refactor of the projection table/collapsing tables
     $('#table-tax tbody').on('click','tr', function () {
         $(this).toggleClass('row_selected');
+        console.log($(this));
         $(this).find('td').each( function (i) {
             switch(i++) {
                 case 0: $("#formAgeRetire").val($(this).html());     break;
-                case 1:                                              break;
                 case 2: $("#formTaxableRetire").val($(this).html()); break;
-                case 3: $("#form401kRetire").val($(this).html());    break;
-                case 4: $("#formRothRetire").val($(this).html());    break;
+                case 5: $("#form401kRetire").val($(this).html());    break;
+                case 8: $("#formRothRetire").val($(this).html());    break;
             }
         });
     });
@@ -178,26 +238,44 @@ $(document).ready(function() {
         e.preventDefault();
         var table = $('#table-tax').DataTable();
         
-        var dont_bother = false;
-        if ( header_clicked === "Age" || header_clicked === "Taxable SWR" ) {
-            dont_bother = true;
-        }
-        
         // Iterates through columns; hides those columns which weren't clicked
-        //      Only works on "taxable", "401k", and "Roth" columns
+        //     Only works on "taxable", "401k", and "Roth" columns
         table.columns().every( function () {
-            switch ($(this.header()).html()) {
-                case "Age"        : break;
-                case "Taxable SWR": break;
-                default           :
-                    if ( !dont_bother && (header_clicked !== $(this.header()).html()) ) {
-                        var column = table.column($(this));
+            if ( $(this.header()).html() === header_clicked ) {
+                switch ($(this.header()).html()) {
+                    case "Taxable": 
+                        var column = table.column('401k:name'); 
                         column.visible( !column.visible() );
-                    }
-                    break;
+                        column = table.column('roth:name'); 
+                        column.visible( !column.visible() );
+                        column = table.column('tax_dep:name'); 
+                        column.visible( !column.visible() );
+                        column = table.column('tax_ann:name'); 
+                        column.visible( !column.visible() );
+                        break;
+                    case "401(k)" : 
+                        var column = table.column('tax:name'); 
+                        column.visible( !column.visible() );
+                        column = table.column('roth:name'); 
+                        column.visible( !column.visible() );
+                        column = table.column('401k_dep:name'); 
+                        column.visible( !column.visible() );
+                        column = table.column('401k_ann:name'); 
+                        column.visible( !column.visible() );
+                        break;
+                    case "Roth"   :
+                        var column = table.column('401k:name'); 
+                        column.visible( !column.visible() );
+                        column = table.column('tax:name'); 
+                        column.visible( !column.visible() );
+                        column = table.column('roth_dep:name'); 
+                        column.visible( !column.visible() );
+                        column = table.column('roth_ann:name'); 
+                        column.visible( !column.visible() );
+                        break;
+                }
             }
         });
     } );
-    
 });
 			
