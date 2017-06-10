@@ -221,15 +221,13 @@ $(document).ready(function() {
     //      Currently broken due to the UI refactor of the projection table/collapsing tables
     $('#table-tax tbody').on('click','tr', function () {
         $(this).toggleClass('row_selected');
-        console.log($(this));
-        $(this).find('td').each( function (i) {
-            switch(i++) {
-                case 0: $("#formAgeRetire").val($(this).html());     break;
-                case 2: $("#formTaxableRetire").val($(this).html()); break;
-                case 5: $("#form401kRetire").val($(this).html());    break;
-                case 8: $("#formRothRetire").val($(this).html());    break;
-            }
-        });
+		var table = $("#table-tax").DataTable();
+        var data  = table.row(this).data();
+
+        $("#formAgeRetire").val(data[0]);;
+        $("#formTaxableRetire").val(data[2]) ; 
+        $("#form401kRetire").val(data[5]);    
+        $("#formRothRetire").val(data[8]);;
     });
     
     // Hides additional investment columns, allowing you to focus on "Taxable", "401k", or "Roth"
